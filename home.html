@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <body>
+
+        <table  class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Habilidades</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="tbody" class="tbody">
+              
+            </tbody>
+            
+        </table>
+        <button onclick="" > Atrás </button>
+              <button onclick=""> Siguiente </button>
+    </div>
+
+<script>
+  let pokemonList= "https://pokeapi.co/api/v2/pokemon";
+ const url = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=20";
+  const pokemons2 = async () => {
+   const pokemonJson= await fetch(url)
+                .then(pokemonJson => pokemonJson.json())
+                .then(pokemon => {
+                  pokemon.results.forEach(function(i)  {
+                        fetch(i.url)
+                            .then(pokemonJson => pokemonJson.json())
+                            .then(pokemon2 => {
+                                const { 
+                                  abilities 
+                                } = pokemon2;
+
+                                let habilidades = abilities.map((habilidad) => {
+                                    return habilidad.ability.name
+                                })
+                              let nose = document.getElementById('tbody');
+                              $('.tbody').append(
+                                `<tr>
+                                    <td>${pokemon2.name}</td>
+                                    <td>${habilidades}</td>
+                                    <td><img src="${pokemon2.sprites.front_shiny}"/></td>
+                                </tr>`)
+                                
+
+                            });
+
+                  })
+
+                })
+        }
+      
+      pokemons2(pokemonList);                
+
+/*let pokemonList = [];
+const pokemons = async () => {
+  const url = "https://pokeapi.co/api/v2/pokemon/";
+  const res = await fetch(url);
+  const pokemonJson = await res.json();
+  let tableBody = document.getElementById('tbody');
+  pokemonJson.results.forEach(function(pokemon)  {
+  
+  let nombre = `<td>${pokemon['name']}</td>`;
+    //let habilidades = `<td>${pokemon.habilidades}</td>`;
+    //let imagen = `<td><img src="${pokemon['sprites.front_default']}"/></td>`;
+
+    
+  });
+  console.log(pokemonList.length);
+  console.log(pokemonList)
+};
+
+pokemons();*/
+
+
+
+
+
+
+
+
+/*
+    const url = 'https://pokeapi.co/api/v2/pokemon';
+    fetch(url)
+    .then(function(res) {
+    return res.json();
+  })
+.then(function(data){
+  let pokemons = data.results;
+
+  $('.table').append('<table align="center"  style="width:100%" class="table datatable table-hover "><thead><tr>'+
+                                            '<th ">Nombre</th>'+
+                                            '<th ">Habilidades</th>'+
+                                             '<th ">Imagen</th>'+
+                                            '</tr></thead><tbody class="col">');
+                                          
+                        
+  for (let i = 0; i < pokemons.length; i++) {
+    console.log(pokemons[i].name)
+    console.log(habilidad(i))
+    var hab = habilidad(i);
+    console.log(hab);
+    /*for(var i = 0; i< habilidad(i).length; i++){
+     
+    }
+    $('.col').append(
+                             '<tr>'+
+                             '<td> '+pokemons[i].name+'</td>'+
+                             '<td> '+ +'</td>'+
+                             '<td> '+ +'</td>'+
+                             
+                             
+                            '</tr>'
+                            );
+    
+  }
+  $('.llenado').append('</div>')
+
+});
+function habilidad (id){
+  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+    let hab = fetch(url).then((res)=>res.json()) 
+    .then((data)=>console.log(data.abilities));
+    console.log(hab);
+    return url;
+    //let Habilidades = data.abilities;
+    
+    
+   
+}*/
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
